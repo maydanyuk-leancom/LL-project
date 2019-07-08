@@ -96,7 +96,7 @@ class ComposerStaticInit499ee76167dd9547bfe98e9b05ba4d15
     public static $prefixDirsPsr4 = array (
         'yii\\swiftmailer\\' => 
         array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/src',
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
         ),
         'yii\\gii\\' => 
         array (
