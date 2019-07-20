@@ -1,12 +1,10 @@
 <?php
 namespace backend\controllers;
-
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
-
 /**
  * Site controller
  */
@@ -40,7 +38,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
     /**
      * {@inheritdoc}
      */
@@ -52,7 +49,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
     /**
      * Displays homepage.
      *
@@ -62,30 +58,32 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
-
     /**
      * Login action.
      *
      * @return string
      */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            $model->password = '';
-
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
-
+//    public function actionLogin()
+//    {
+//
+//        if (Yii::$app->controller->action->id === 'login') {
+//            /**
+//             * Do not use this code in your template. Remove it.
+//             * Instead, use the code  $this->layout = '//main-login'; in your controller.
+//             */
+//            echo $this->render(
+//                'main-login',
+//                ['content' => $content]
+//            );
+//        } else {
+//            if (class_exists('backend\assets\AppAsset')) {
+//                backend\assets\AppAsset::register($this);
+//            } else {
+//                app\assets\AppAsset::register($this);
+//            }
+//            dmstr\web\AdminLteAsset::register($this);
+//        }
+//    }
     /**
      * Logout action.
      *
@@ -94,7 +92,6 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 }

@@ -7,6 +7,7 @@ $config = [
             'cookieValidationKey' => 'x-8zLCkxqAS7SuSMJ5dycBzJsiNluulS',
         ],
     ],
+
 ];
 
 if (!YII_ENV_TEST) {

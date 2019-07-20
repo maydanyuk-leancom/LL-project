@@ -73,6 +73,16 @@
       <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-authclient" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-httpclient" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/mdmsoft/yii2-admin" />
+      <path value="$PROJECT_DIR$/vendor/fortawesome/font-awesome" />
+      <path value="$PROJECT_DIR$/vendor/cebe/yii2-gravatar" />
+      <path value="$PROJECT_DIR$/vendor/rmrevin/yii2-fontawesome" />
+      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte" />
+      <path value="$PROJECT_DIR$/vendor/dektrium/yii2-user" />
+      <path value="$PROJECT_DIR$/vendor/dmstr/yii2-adminlte-asset" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />

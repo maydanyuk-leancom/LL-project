@@ -36,28 +36,96 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Блог', 'url' => ['/site/blog']],
+        ['label' => 'Исследуем', 'url' => ['/site/investigate']],
+        ['label' => 'Исследователи', 'url' => ['/site/researchers']],
+
     ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
+
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => $menuItems,
     ]);
+
+    echo "<form class='navbar-form navbar-left' role='search'>
+       <div class='form-group has-feedback'>
+            <input id='searchbox' type='text'  placeholder='Search' class='form-control'>
+            <span id='searchicon' class='fa fa-search form-control-feedback'></span>
+            <button type=\"submit\" class=\"btn btn-default\">Поиск</button>
+        </div>
+  </form>";
+
+    $menuLogin = [];
+
+    if (Yii::$app->user->isGuest) {
+        array_push($menuLogin,['label' => 'Войти', 'url' => ['/user/login']],['label' => 'Регистрация', 'url' => ['/user/register']]);
+    } else {
+        array_push($menuLogin,['label' => 'Выйти (' . Yii::$app->user->identity->username . ')',
+                'url' => ['/site/logout'],
+                'linkOptions' => ['data-method' => 'post']]
+        );
+    }
+
+
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuLogin,
+    ]);
+
+    echo Nav::widget([
+        'options' => ['class' => ''],
+        'items' => ['
+        <div class="tab-content col-lg-12">
+            <div class="tab-pane fade" id="menu_blog">
+            <ol class="breadcrumb">
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+                <li><a href="#">#Блог_Теги</a></li>
+            </ol>
+            </div>
+            <div class="tab-pane fade" id="menu_investigate">
+            <ol class="breadcrumb">
+            <li><a href="#">#Исследуем_Теги</a></li>
+            <li><a href="#">#Исследуем_Теги</a></li>
+            <li><a href="#">#Исследуем_Теги</a></li>
+            <li><a href="#">#Исследуем_Теги</a></li>
+            <li><a href="#">#Исследуем_Теги</a></li>
+            <li><a href="#">#Исследуем_Теги</a></li>
+            <li><a href="#">#Исследуем_Теги</a></li>
+            <li><a href="#">#Исследуем_Теги</a></li>
+            <li><a href="#">#Исследуем_Теги</a></li>                                               
+            </ol>
+            </div>
+            <div class="tab-pane fade" id="menu_researchers">
+            <ol class="breadcrumb">
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>
+            <li><a href="#">#Исследователи_Теги</a></li>                                              
+            </ol>
+            </div>
+        <div>
+        ']
+    ]);
     NavBar::end();
+
     ?>
 
     <div class="container">
@@ -69,11 +137,13 @@ AppAsset::register($this);
     </div>
 </div>
 
+
+
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right">Работает на энтузиазме</p>
     </div>
 </footer>
 

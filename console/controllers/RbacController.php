@@ -82,4 +82,4 @@ class RbacController extends Controller {
 
         $auth->assign($premium, 5);
     }
-} 
+}
