@@ -15,6 +15,7 @@
   "type": "project",
   "license": "MIT",
   "require": {
+    "mio/llproject":"dev-master@dev",
     "php": ">=7.1.0",
     "ext-intl": "*",
     "yiisoft/yii2": "^2.0.13",
