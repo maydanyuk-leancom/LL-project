@@ -3,14 +3,10 @@
 
 <!-- /BADGES -->
 
-This is Yii2 start application template.
-
-It was created and developing as a fast start for building an advanced sites based on Yii2.
-
-It covers typical use cases for a new project and will help you not to waste your time doing the same work in every project
+Create your investigation with us!
 
 
-## TABLE OF CONTENTS
+## Настройка
 
 
 1. [Установите NPM для Windows](https://nodejs.org/en/download/)
@@ -23,7 +19,7 @@ It covers typical use cases for a new project and will help you not to waste you
     
     composer global require "fxp/composer-asset-plugin"
     
-    composer create-project maydanyuk-leancom/LL-project MIO
+    composer create-project maydanyuk-leancom/LL-project mio
     ```
 4. Скопируйте файл .env.dist в .env в корневом каталоге проекта. Проверьте установки приложения в файле .env
   
