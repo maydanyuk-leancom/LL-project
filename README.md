@@ -19,7 +19,7 @@ Create your investigation with us!
     
     composer global require "fxp/composer-asset-plugin"
     
-    composer create-project maydanyuk-leancom/LL-project mio
+    composer composer create-project mio/llproject -s dev mio
     ```
 4. Скопируйте файл .env.dist в .env в корневом каталоге проекта. Проверьте установки приложения в файле .env
   
