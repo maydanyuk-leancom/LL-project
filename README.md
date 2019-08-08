@@ -1,60 +1,95 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
-    <br>
-</p>
+# MIO
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+<!-- /BADGES -->
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+This is Yii2 start application template.
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+It was created and developing as a fast start for building an advanced sites based on Yii2.
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
+It covers typical use cases for a new project and will help you not to waste your time doing the same work in every project
 
-DIRECTORY STRUCTURE
--------------------
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
+## TABLE OF CONTENTS
+
+
+1. [Установите NPM для Windows](https://nodejs.org/en/download/)
+2. OpenServer необходимо запускать от имени Администратора системы иначе возникают ошибки. 
+3. Запустите консоль OpenServer и выполните в ней команды
+    ```bash
+    cd domains
+    
+    composer self-update
+    
+    composer global require "fxp/composer-asset-plugin"
+    
+    composer create-project maydanyuk-leancom/LL-project MIO
+    ```
+4. Скопируйте файл .env.dist в .env в корневом каталоге проекта. Проверьте установки приложения в файле .env
+  
+5. Установка режима отладки и текущего окружения
+    YII_DEBUG = true  YII_ENV = dev
+  
+6. Установка связи с базой данных
+
+    DB_DSN = mysql:host=127.0.0.1;port=3306;dbname=mio
+  
+    TEST_DB_DSN = mysql:host=127.0.0.1;port=3306;dbname=mio
+  
+    DB_USERNAME = root
+  
+    DB_PASSWORD = [как правило пароля здесь не ставят]
+  
+    TEST_DB_USERNAME = root
+  
+    TEST_DB_PASSWORD = [как правило пароля здесь не ставят]
+    
+7.  В консоле запустите следующие команды (создаем рабочую базы данных)
+     ```bash
+     mysqladmin -uroot -p[ваш пароль] create mio
+     ```
+   8. Переходим в каталог приложения
+   
+      ```bash
+      cd mio
+      ```
+   9. Устанавливаем недостающие компоненты
+      
+      ```bash
+      composer install
+      ```
+   10. Генерируем разные ключи в файле окружения и другое
+       
+       ```bash
+       php console/yii app/setup
+       ```
+   11. Устанавливаем компоненты npm
+       ```bash
+          npm install
+       ```
+   12. В файле frontend\web\css\style.less в первой строке пишем вместо @import "_article"; строку @import "_article.less"; 
+   
+   13. Компилируем
+       ```bash
+       npm run build
+       ```
+   14. Перенос сообщений между различными источниками сообщений:
+       ```bash
+       php console/yii message/migrate @common/config/messages/php.php @common/config/messages/db.php
+       ```
+   15. Замена языка исходного кода:   
+       ```bash
+       php console/yii message/replace-source-language @common/config/messages/php.php ru-RU
+       ```
+   16. Удаление Yii::t из исходного кода
+       ```bash
+       php console/yii message/replace-source-language @common/config/messages/php.php
+       ```
+   17. В OpenServer настроить 3 домена     
+               
+     
+   
+ 
+
+
+

@@ -1,59 +1,115 @@
 <?php
 
 
-/* @var $this yii\web\View */
-
 use yii\helpers\Html;
-use yii\web\View;
+use yii\widgets\ActiveForm;
 
+/* @var $this yii\web\View */
+$this->title = Yii::$app->name;
 
-
-$this->title = 'Investigation';
-//$this->params['breadcrumbs'][] = $this->title;
-$this->registerCssFile('/assets/web/assets/mobirise-icons/mobirise-icons.css');
+$this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
 $this->registerCssFile('/assets/tether/tether.min.css');
 $this->registerCssFile('/assets/theme/css/style.css');
-$this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
+$this->registerCssFile('/css/custom.css');
 
+$this->registerJsFile(Yii::$app->request->baseUrl.'/js/investigation/investigation.js',['position'=>\yii\web\View::POS_END]);
+$this->registerJsFile(Yii::$app->request->baseUrl.'/js/add_fields.js',['position'=>\yii\web\View::POS_END])
 
 
 ?>
-<br><br><br>
 
 <div class="site-investigation-create">
-
-
-    <section class="pricing-table1 cid-rw8hQ6kflE" id="pricing-tables1-a">
+    <section class="mbr-section info2 cid-rvQ7Ldk6nZ1 " id="info2-6" >
 
 
 
 
-        <div class="container">
+        <div class="container question">
+            <div class="row main justify-content-center ">
+                <div class="media-container-column  title col-12 col-lg-7 col-md-6">
+                    <h6 class="mbr-bold mbr-white ">1.Настройка</h6>
+                    <h2 class="mbr-bold mbr-white pb-3 mbr-fonts-style display-2">
+                        Введите вопрос
+                    </h2>
+
+
+
+                    <h3 class="mbr-section-subtitle mbr-light mbr-white mbr-fonts-style display-5">
+                        Варианты ответа
+                    </h3>
+
+                    <div role="form" class="form-inline " >
+
+                        <input type="hidden" name="count" value="1" />
+
+
+
+<!--                        <input autocomplete="off" class="form-control input" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/>-->
+                        <button id="b1" class=" add-more form-control  btn-success" type="button">+</button>
+
+                    </div>
+                </div>
+                <div class="media-container-column  col-12 col-lg-3 col-md-4">
+                    <div class="mbr-section-btn align-right py-4">
+                        <a class="btn btn-primary display-4 ask" >
+                            Добавить вопрос
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="added_question"></div>
+
+
+
+
+    </section>
+
+    <br> <br>
+
+    <div class="form-group" align="center">
+
+    </div>
+
+
+
+
+    <section class="pricing-table1 cid-rw8oOP3r7u" id="pricing-tables1-f">
+
+
             <div class="media-container-row">
 
                 <div class="plan col-12 mx-2 my-2 justify-content-center col-lg-3">
                     <div class="plan-header text-center pt-5">
                         <h3 class="plan-title mbr-fonts-style display-5">
-                            Личные
+                            Standard
                         </h3>
                         <div class="plan-price">
-
-                            Бесплатно
+                        <span class="price-value mbr-fonts-style display-5">
+                            $
+                        </span>
+                            <span class="price-figure mbr-fonts-style display-1">
+                              35</span>
+                            <small class="price-term mbr-fonts-style display-7">
+                                в месяц
+                            </small>
                         </div>
                     </div>
                     <div class="plan-body pb-5">
                         <div class="plan-list align-center">
                             <ul class="list-group list-group-flush mbr-fonts-style display-7">
                                 <li class="list-group-item">
-                                   Бесплатно до 3х раз
+                                    Mobirise идеально подходит тем, кто не знаком с понятием веб-разработки
                                 </li>
                                 <li class="list-group-item">
-                                    1 виджет
+                                    5 Gb трафик
                                 </li>
                             </ul>
                         </div>
                         <div class="mbr-section-btn text-center pt-4">
-                            <a href="https://mobirise.co" class="btn btn-primary display-4">КУПИТЬ СЕЙЧАС</a>
+                            <a  class="btn btn-primary display-4 buy">КУПИТЬ СЕЙЧАС</a>
                         </div>
                     </div>
                 </div>
@@ -61,14 +117,14 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
                 <div class="plan col-12 mx-2 my-2 justify-content-center col-lg-3">
                     <div class="plan-header text-center pt-5">
                         <h3 class="plan-title mbr-fonts-style display-5">
-                            Простые
+                            Бизнес
                         </h3>
                         <div class="plan-price">
                         <span class="price-value mbr-fonts-style display-5">
-                            Р
+                            $
                         </span>
                             <span class="price-figure mbr-fonts-style display-1">
-                            190</span>
+                            65</span>
                             <small class="price-term mbr-fonts-style display-7">
                                 в день
                             </small>
@@ -78,15 +134,15 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
                         <div class="plan-list align-center">
                             <ul class="list-group list-group-flush mbr-fonts-style display-7">
                                 <li class="list-group-item">
-                                    Описание
+                                    Mobirise идеально подходит тем, кто не знаком с понятием веб-разработки
                                 </li>
                                 <li class="list-group-item">
-                                   Описание
+                                    10 Gb трафик
                                 </li>
                             </ul>
                         </div>
                         <div class="mbr-section-btn text-center pt-4">
-                            <a href="https://mobirise.co" class="btn btn-primary display-4">КУПИТЬ СЕЙЧАС</a>
+                            <a class="btn btn-primary display-4 buy">КУПИТЬ СЕЙЧАС</a>
                         </div>
                     </div>
                 </div>
@@ -94,47 +150,14 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
                 <div class="plan col-12 mx-2 my-2 justify-content-center col-lg-3">
                     <div class="plan-header text-center pt-5">
                         <h3 class="plan-title mbr-fonts-style display-5">
-                            Стартап
-                        </h3>
-                        <div class="plan-price">
-                        <span class="price-value mbr-fonts-style display-5">
-                            Р
-                        </span>
-                            <span class="price-figure mbr-fonts-style display-1">
-                            390</span>
-                            <small class="price-term mbr-fonts-style display-7">
-                                в год
-                            </small>
-                        </div>
-                    </div>
-                    <div class="plan-body pb-5">
-                        <div class="plan-list align-center">
-                            <ul class="list-group list-group-flush mbr-fonts-style display-7">
-                                <li class="list-group-item">
-                                    Описание
-                                </li>
-                                <li class="list-group-item">
-                                   Описание
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mbr-section-btn text-center pt-4">
-                            <a href="https://mobirise.co" class="btn btn-primary display-4">КУПИТЬ СЕЙЧАС</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="plan col-12 mx-2 my-2 justify-content-center col-lg-3">
-                    <div class="plan-header text-center pt-5">
-                        <h3 class="plan-title mbr-fonts-style display-5">
-                            Компания
+                            Премиум
                         </h3>
                         <div class="plan-price">
                         <span class="price-value mbr-fonts-style display-5">
                             $
                         </span>
                             <span class="price-figure mbr-fonts-style display-1">
-                            990</span>
+                            90</span>
                             <small class="price-term mbr-fonts-style display-7">
                                 в год
                             </small>
@@ -144,24 +167,63 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
                         <div class="plan-list align-center">
                             <ul class="list-group list-group-flush mbr-fonts-style display-7">
                                 <li class="list-group-item">
-                                    Описание
+                                    Mobirise идеально подходит тем, кто не знаком с понятием веб-разработки
                                 </li>
                                 <li class="list-group-item">
-                                 Описание
+                                    15 GB трафик
                                 </li>
                             </ul>
                         </div>
                         <div class="mbr-section-btn text-center pt-4">
-                            <a href="https://mobirise.co" class="btn btn-primary display-4">КУПИТЬ СЕЙЧАС</a>
+                            <a class="btn btn-primary display-4 buy">КУПИТЬ СЕЙЧАС</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="plan col-12 mx-2 my-2 justify-content-center col-lg-3">
+                    <div class="plan-header text-center pt-5">
+                        <h3 class="plan-title mbr-fonts-style display-5">
+                            Максимальный
+                        </h3>
+                        <div class="plan-price">
+                        <span class="price-value mbr-fonts-style display-5">
+                            $
+                        </span>
+                            <span class="price-figure mbr-fonts-style display-1">
+                            150</span>
+                            <small class="price-term mbr-fonts-style display-7">
+                                в год
+                            </small>
+                        </div>
+                    </div>
+                    <div class="plan-body pb-5">
+                        <div class="plan-list align-center">
+                            <ul class="list-group list-group-flush mbr-fonts-style display-7">
+                                <li class="list-group-item">
+                                    Mobirise идеально подходит тем, кто не знаком с понятием веб-разработки
+                                </li>
+                                <li class="list-group-item">
+                                    20 GB трафик
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mbr-section-btn text-center pt-4">
+                            <a  class="btn btn-primary display-4 buy">КУПИТЬ СЕЙЧАС</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+
+
+
+
+
     </section>
-    <br>
-    <h4 class="text-center">Вариант опроса</h4>
-    <section class="features8 cid-rw8ieUDcNh mbr-parallax-background" id="features8-c">
+
+    <br><br>
+
+    <section class="features8 cid-rwJbJO8hWp mbr-parallax-background hidethis" id="features8-n">
 
 
 
@@ -173,7 +235,7 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
 
                 <div class="card  col-12 col-md-6 col-lg-4">
                     <div class="card-img">
-                        <img style="width: 200px;" src="/frontend/web/assets/images/emoticons.png">
+                        <img style="width: 200px;" src="/assets/images/emoticons.png">
                     </div>
                     <div class="card-box align-center">
                         <h4 class="card-title mbr-fonts-style display-7">
@@ -183,8 +245,8 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
                             Описание
                         </p>
                         <div class="mbr-section-btn text-center">
-                            <a href="https://mobirise.co" class="btn btn-secondary display-4">
-                                Еще
+                            <a  class="btn btn-secondary display-4">
+                                Выбрать
                             </a>
                         </div>
                     </div>
@@ -192,7 +254,7 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
 
                 <div class="card  col-12 col-md-6 col-lg-4">
                     <div class="card-img">
-                        <img style="width: 260px;" src="/frontend/web/assets/images/deep.jpg">
+                        <img style="width: 260px;" src="/assets/images/deep.jpg">
                     </div>
                     <div class="card-box align-center">
                         <h4 class="card-title mbr-fonts-style display-7">
@@ -202,8 +264,8 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
                             Описание
                         </p>
                         <div class="mbr-section-btn text-center">
-                            <a href="https://mobirise.co" class="btn btn-secondary display-4">
-                                Еще
+                            <a  class="btn btn-secondary display-4">
+                                Выбрать
                             </a>
                         </div>
                     </div>
@@ -214,120 +276,379 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
         </div>
     </section>
 
-    <section class="features3 cid-rw8i64uLDD" id="features3-b">
+    <br><br>
+
+    <!--    <section class="tabs3 cid-rwJc0Lwxvc" id="tabs3-p">-->
+    <!---->
+    <!---->
+    <!---->
+    <!---->
+    <!---->
+    <!--        <div class="container">-->
+    <!--            <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">-->
+    <!--                Вкладки со столбцами-->
+    <!--            </h2>-->
+    <!--            <h3 class="mbr-section-subtitle  display-5 align-center mbr-light mbr-fonts-style">-->
+    <!--                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+    <!--            </h3>-->
+    <!--        </div>-->
+    <!--        <div class="container-fluid">-->
+    <!--            <div class="row tabcont">-->
+    <!--                <ul class="nav nav-tabs pt-3 mt-5" role="tablist">-->
+    <!--                    <li class="nav-item mbr-fonts-style">-->
+    <!--                        <a class="nav-link active display-7" role="tab" data-toggle="tab" href="#tab1">-->
+    <!--                            Отзывчивый-->
+    <!--                        </a>-->
+    <!--                    </li>-->
+    <!--                    <li class="nav-item mbr-fonts-style">-->
+    <!--                        <a class="nav-link  display-7" role="tab" data-toggle="tab" href="#tab2">-->
+    <!--                            Без кодирования-->
+    <!--                        </a>-->
+    <!--                    </li>-->
+    <!--                    <li class="nav-item mbr-fonts-style">-->
+    <!--                        <a class="nav-link display-7" role="tab" data-toggle="tab" href="#tab3">-->
+    <!--                            Уникальные стили-->
+    <!--                        </a>-->
+    <!--                    </li>-->
+    <!---->
+    <!---->
+    <!---->
+    <!--                </ul>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!---->
+    <!--        <div class="container">-->
+    <!--            <div class="row px-1">-->
+    <!--                <div class="tab-content">-->
+    <!--                    <div id="tab1" class="tab-pane in active mbr-table" role="tabpanel">-->
+    <!--                        <div class="row tab-content-row">-->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-responsive mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    МОБИЛЬНАЯ АДАПТАЦИЯ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Не требуется особых знаний, все сайты Mobirise адаптивны. Вам не нужно создавать специально мобильную версию сайта.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-responsive mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    МОБИЛЬНАЯ АДАПТАЦИЯ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Не требуется особых знаний, все сайты Mobirise адаптивны. Вам не нужно создавать специально мобильную версию сайта.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-responsive mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    МОБИЛЬНАЯ АДАПТАЦИЯ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Не требуется особых знаний, все сайты Mobirise адаптивны. Вам не нужно создавать специально мобильную версию сайта.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!---->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!---->
+    <!--                    <div id="tab2" class="tab-pane  mbr-table" role="tabpanel">-->
+    <!--                        <div class="row tab-content-row">-->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-bootstrap mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ЛЕГКО И ПРОСТО-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Сократите время разработки с помощью простого перетаскивания блоков на страницу, редактируйте содержание и публикуйте - нет необходимости в технических навыках.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-bootstrap mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ЛЕГКО И ПРОСТО-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Сократите время разработки с помощью простого перетаскивания блоков на страницу, редактируйте содержание и публикуйте - нет необходимости в технических навыках.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-bootstrap mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ЛЕГКО И ПРОСТО-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Сократите время разработки с помощью простого перетаскивания блоков на страницу, редактируйте содержание и публикуйте - нет необходимости в технических навыках.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!---->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!---->
+    <!--                    <div id="tab3" class="tab-pane  mbr-table" role="tabpanel">-->
+    <!--                        <div class="row tab-content-row">-->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-extension mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ТРЕНДОВЫЕ БЛОКИ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Выберите готовые и настраиваемые шаблоны блоков - полноэкранный интро, bootstrap-карусель, слайдер, галерею изображений с параллаксом, "липким" заголовком и многое другое.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-extension mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ТРЕНДОВЫЕ БЛОКИ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Выберите готовые и настраиваемые шаблоны блоков - полноэкранный интро, bootstrap-карусель, слайдер, галерею изображений с параллаксом, "липким" заголовком и многое другое.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-extension mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ТРЕНДОВЫЕ БЛОКИ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Выберите готовые и настраиваемые шаблоны блоков - полноэкранный интро, bootstrap-карусель, слайдер, галерею изображений с параллаксом, "липким" заголовком и многое другое.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!---->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!---->
+    <!--                    <div id="tab4" class="tab-pane  mbr-table" role="tabpanel">-->
+    <!--                        <div class="row tab-content-row">-->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-responsive mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    МОБИЛЬНАЯ АДАПТАЦИЯ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Не требуется особых знаний, все сайты Mobirise адаптивны. Вам не нужно создавать специально мобильную версию сайта.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-responsive mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    МОБИЛЬНАЯ АДАПТАЦИЯ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Не требуется особых знаний, все сайты Mobirise адаптивны. Вам не нужно создавать специально мобильную версию сайта.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-responsive mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    МОБИЛЬНАЯ АДАПТАЦИЯ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Не требуется особых знаний, все сайты Mobirise адаптивны. Вам не нужно создавать специально мобильную версию сайта.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!---->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!---->
+    <!--                    <div id="tab5" class="tab-pane  mbr-table" role="tabpanel">-->
+    <!--                        <div class="row tab-content-row">-->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-bootstrap mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ЛЕГКО И ПРОСТО-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Сократите время разработки с помощью простого перетаскивания блоков на страницу, редактируйте содержание и публикуйте - нет необходимости в технических навыках.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-bootstrap mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ЛЕГКО И ПРОСТО-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Сократите время разработки с помощью простого перетаскивания блоков на страницу, редактируйте содержание и публикуйте - нет необходимости в технических навыках.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-bootstrap mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ЛЕГКО И ПРОСТО-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Сократите время разработки с помощью простого перетаскивания блоков на страницу, редактируйте содержание и публикуйте - нет необходимости в технических навыках.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!---->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!---->
+    <!--                    <div id="tab6" class="tab-pane  mbr-table" role="tabpanel">-->
+    <!--                        <div class="row tab-content-row">-->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-extension mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ТРЕНДОВЫЕ БЛОКИ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Выберите готовые и настраиваемые шаблоны блоков - полноэкранный интро, bootstrap-карусель, слайдер, галерею изображений с параллаксом, "липким" заголовком и многое другое.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-extension mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ТРЕНДОВЫЕ БЛОКИ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Выберите готовые и настраиваемые шаблоны блоков - полноэкранный интро, bootstrap-карусель, слайдер, галерею изображений с параллаксом, "липким" заголовком и многое другое.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!--                            <div class="col-xs-12 col-md-6 col-lg-4">-->
+    <!--                                <div class="card-img ">-->
+    <!--                                    <span class="mbri-extension mbr-iconfont"></span>-->
+    <!--                                </div>-->
+    <!--                                <h4 class="mbr-element-title  align-center mbr-fonts-style pb-2 display-5">-->
+    <!--                                    ТРЕНДОВЫЕ БЛОКИ-->
+    <!--                                </h4>-->
+    <!--                                <p class="mbr-section-text  align-center mbr-fonts-style display-7">-->
+    <!--                                    Выберите готовые и настраиваемые шаблоны блоков - полноэкранный интро, bootstrap-карусель, слайдер, галерею изображений с параллаксом, "липким" заголовком и многое другое.-->
+    <!--                                </p>-->
+    <!--                            </div>-->
+    <!---->
+    <!---->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </section>-->
+    <!---->
+    <!--    <br><br>-->
+
+    <section class="features13 cid-rwJbOVusiW hidethis" id="features13-o">
 
 
 
 
         <div class="container">
+
             <div class="media-container-row">
-                <div class="card p-3 col-12 col-md-6 col-lg-2">
-
-                </div>
-
-                <div class="card p-3 col-12 col-md-6 col-lg-4">
-                    <div class="card-wrapper">
+                <div class="card col-12 col-md-6 align-center col-lg-4">
+                    <div class="card-wrap choise">
                         <div class="card-img">
-                            <img src="assets/images/uploadtoweb.png" alt="Mobirise">
+                            <img src="/assets/images/background1.jpg" alt="Mobirise" title="">
                         </div>
-                        <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style display-7">
+                        <div class="card-box p-5 ">
+                            <h4 class="card-title py-2 mbr-fonts-style align-center mbr-white display-5">
                                 Поделиться с миром
                             </h4>
-                            <p class="mbr-text mbr-fonts-style display-7">
-                               Описание
+                            <p class="mbr-text mbr-fonts-style mbr-white display-7">
+                                Очень интересный текст слайдеры, галереи, блоки статей, счетчики.
                             </p>
-                        </div>
-                        <div class="mbr-section-btn text-center">
-                            <a href="https://mobirise.co" class="btn btn-primary display-4">
-                                Подробнее
-                            </a>
                         </div>
                     </div>
                 </div>
-
-                <div class="card p-3 col-12 col-md-6 col-lg-4">
-                    <div class="card-wrapper">
+                <div class="card col-12 col-md-6 align-center col-lg-4">
+                    <div class="card-wrap choise">
                         <div class="card-img">
-                            <img src="assets/images/savelocal.png" alt="Mobirise">
+                            <img src="/assets/images/background2.jpg" alt="Mobirise">
                         </div>
-                        <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style display-7">
-                               Забрать себе
+                        <div class="card-box p-5 ">
+                            <h4 class="card-title py-2 mbr-fonts-style align-center mbr-white display-5">
+                                Оставить себе
                             </h4>
-                            <p class="mbr-text mbr-fonts-style display-7">
-                               Описание
+                            <p class="mbr-text mbr-fonts-style mbr-white display-7">
+                                Очень интересный текст слайдеры, галереи, блоки статей, счетчики.
                             </p>
                         </div>
-                        <div class="mbr-section-btn text-center">
-                            <a href="https://mobirise.co" class="btn btn-primary display-4">
-                                Подробнее
-                            </a>
+                    </div>
+                </div>
+                <div class="card col-12 col-md-6 align-center col-lg-4">
+                    <div class="card-wrap choise">
+                        <div class="card-img">
+                            <img src="/assets/images/background4.jpg" alt="Mobirise">
+                        </div>
+                        <div class="card-box p-5 " >
+                            <h4 class="card-title py-2 mbr-fonts-style align-center mbr-white display-5">
+                                Безлимитно
+                            </h4>
+                            <p class="mbr-text mbr-fonts-style mbr-white display-7">
+                                фыаыа ыва кппплф ыпафып д ывафыа д фыпфап
+                            </p>
                         </div>
                     </div>
                 </div>
-
-                <div class="card p-3 col-12 col-md-6 col-lg-2">
-
-                </div>
-
-
             </div>
         </div>
     </section>
-    <h4 class="text-center">Цель опроса</h4>
-    <section class="features4 cid-rvQ7vkXmch" id="features4-4">
 
-
-
+    <section class="mbr-section content8 cid-rwJbFOGQzn hidethis" id="content8-m">
         <div class="container">
-
-            <div class="media-container-row">
-
-                <div class="card p-3 col-12 col-md-6 col-lg-4">
-                    <div class="card-wrapper media-container-row media-container-row">
-                        <div class="card-box">
-                            <h4 class="card-title pb-3 mbr-fonts-style display-7">
-                                Забавы ради
-                            </h4>
-
-                        </div>
+            <div class="media-container-row title">
+                <div class="col-12 col-md-8">
+                    <div class="mbr-section-btn align-center">
+                        <a class="btn btn-secondary display-4" data-toggle="modal" data-target="#myModal">Создать исследование</a>
+                        <a class="btn btn-black-outline display-4" href="https://mobirise.co">Сохранить</a>
                     </div>
                 </div>
-
-                <div class="card p-3 col-12 col-md-6 col-12 col-md-6 col-lg-4">
-                    <div class="card-wrapper media-container-row">
-                        <div class="card-box">
-                            <h4 class="card-title pb-3 mbr-fonts-style display-7">
-                                Меняю мир к лучшему
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card p-3 col-12 col-md-6 col-lg-4">
-                    <div class="card-wrapper media-container-row">
-                        <div class="card-box">
-                            <h4 class="card-title pb-3 mbr-fonts-style display-7">
-                                Хочу больше знать
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </section>
-    <br>
-    <div class="mbr-section-btn text-center">
-        <a data-toggle="modal" data-target="#myModal" class="btn btn-primary display-4">
-            Cоздать исследование
-        </a>
-        <a href="https://mobirise.co" class="btn btn-primary display-4">
-            Сохранить
-        </a>
-    </div>
+
+
 
 
 
@@ -343,13 +664,19 @@ $this->registerCssFile('/assets/mobirise/css/mbr-additional.css');
             <div class="modal-body text-center">
                 <p>Чтобы твой ответ был учтен, зарегистрируйся через</p>
 
-                <a class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i></a>
+                <div class="form-group">
+                    <?php $authAuthChoice = yii\authclient\widgets\AuthChoice::begin([
+                        'baseAuthUrl' => ['oauth']
+                    ]); ?>
+                    <ul class="list-unstyle list-inline">
+                        <?php foreach ($authAuthChoice->getClients() as $client): ?>
+                            <li><?= $authAuthChoice->clientLink($client) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php yii\authclient\widgets\AuthChoice::end(); ?>
+                </div>
 
-                <a class="btn btn-social-icon btn-google-plus"><i class="fa fa-google-plus"></i></a>
-                <!--                            <a class="btn btn-social-icon btn-instagram"><i class="fa fa-instagram"></i></a>-->
-                <a class="btn btn-social-icon btn-vk"><i class="fa fa-vk"></i></a>
-
-                <a href="/user/registration/register">Или через почту</a>
+                <a href="/user/sign-in/signup">Или через почту</a>
 
                 <br>
                 <br>

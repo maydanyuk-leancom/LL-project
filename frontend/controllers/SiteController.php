@@ -1,20 +1,20 @@
 <?php
+
 namespace frontend\controllers;
 
-use frontend\models\ResendVerificationEmailForm;
-use frontend\models\VerifyEmailForm;
+use cheatsheet\Time;
+use common\sitemap\UrlsIterator;
+use frontend\models\ContactForm;
+use frontend\modules\question\models\Answers;
+use frontend\modules\question\models\Questions;
+use frontend\modules\question\models\UserAnswers;
+use Sitemaped\Element\Urlset\Urlset;
+use Sitemaped\Sitemap;
 use Yii;
-use yii\base\InvalidArgumentException;
+use yii\filters\PageCache;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
-use common\services\auth\SignupService;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -22,366 +22,182 @@ use common\services\auth\SignupService;
 class SiteController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+            [
+                'class' => PageCache::class,
+                'only' => ['sitemap'],
+                'duration' => Time::SECONDS_IN_AN_HOUR,
+            ]
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function actions()
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => 'yii\web\ErrorAction'
             ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
             ],
-            'auth' => [
-                'class' => 'yii\authclient\AuthAction',
-                'successCallback' => [$this, 'onAuthSuccess'],
-            ],
+            'set-locale' => [
+                'class' => 'common\actions\SetLocaleAction',
+                'locales' => array_keys(Yii::$app->params['availableLocales'])
+            ]
         ];
-
-
     }
-
-
-    public function onAuthSuccess($client)
-    {
-        $attributes = $client->getUserAttributes();
-
-        /* @var $auth Auth */
-        $auth = Auth::find()->where([
-            'source' => $client->getId(),
-            'source_id' => $attributes['id'],
-        ])->one();
-
-        if (Yii::$app->user->isGuest) {
-            if ($auth) { // авторизация
-                $user = $auth->user;
-                Yii::$app->user->login($user);
-            } else { // регистрация
-                if (isset($attributes['email']) && User::find()->where(['email' => $attributes['email']])->exists()) {
-                    Yii::$app->getSession()->setFlash('error', [
-                        Yii::t('app', "Пользователь с такой электронной почтой как в {client} уже существует, но с ним не связан. Для начала войдите на сайт использую электронную почту, для того, что бы связать её.", ['client' => $client->getTitle()]),
-                    ]);
-                } else {
-                    $password = Yii::$app->security->generateRandomString(6);
-                    $user = new User([
-                        'username' => $attributes['login'],
-                        'email' => $attributes['email'],
-                        'password' => $password,
-                    ]);
-                    $user->generateAuthKey();
-                    $user->generatePasswordResetToken();
-                    $transaction = $user->getDb()->beginTransaction();
-                    if ($user->save()) {
-                        $auth = new Auth([
-                            'user_id' => $user->id,
-                            'source' => $client->getId(),
-                            'source_id' => (string)$attributes['id'],
-                        ]);
-                        if ($auth->save()) {
-                            $transaction->commit();
-                            Yii::$app->user->login($user);
-                        } else {
-                            print_r($auth->getErrors());
-                        }
-                    } else {
-                        print_r($user->getErrors());
-                    }
-                }
-            }
-        } else { // Пользователь уже зарегистрирован
-            if (!$auth) { // добавляем внешний сервис аутентификации
-                $auth = new Auth([
-                    'user_id' => Yii::$app->user->id,
-                    'source' => $client->getId(),
-                    'source_id' => $attributes['id'],
-                ]);
-                $auth->save();
-            }
-        }
-    }
-
 
     /**
-     * Displays homepage.
-     *
-     * @return mixed
+     * @return string
      */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
-//    public function actionLogin()
-//    {
-//        if (!Yii::$app->user->isGuest) {
-//            return $this->goHome();
-//        }
-//
-//        $model = new LoginForm();
-//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-//            return $this->goBack();
-//        } else {
-//            $model->password = '';
-//
-//            return $this->render('login', [
-//                'model' => $model,
-//            ]);
-//        }
-//    }
-
-//    public function actionLogin()
-//    {
-//        if (!Yii::$app->user->isGuest) {
-//            return $this->goHome();
-//        }
-//
-//        $form = new LoginForm();
-//        if ($form->load(Yii::$app->request->post())) {
-//            try{
-//                if($form->login()){
-//                    return $this->goBack();
-//                }
-//            } catch (\DomainException $e){
-//                Yii::$app->session->setFlash('error', $e->getMessage());
-//                return $this->goHome();
-//            }
-//        }
-//
-//        return $this->render('login', [
-//            'model' => $form,
-//        ]);
-//    }
-
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
     public function actionInvestigation()
     {
         return $this->render('investigation');
     }
-    public function actionDa()
+
+    public function actionPoll()
     {
-        return $this->render('da');
+        return $this->render('poll');
     }
-    public function actionDn()
+
+
+    public function actionChannels()
     {
-        return $this->render('dn');
+        return $this->render('channels');
     }
+
+
 
     /**
-     * Signs user up.
-     *
-     * @return mixed
+     * @return string|Response
      */
-    public function actionSignup()
+    public function actionContact()
     {
-        $form = new SignupForm();
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            $signupService = new SignupService();
-
-            try{
-                $user = $signupService->signup($form);
-                Yii::$app->session->setFlash('success', 'Check your email to confirm the registration.');
-                $signupService->sentEmailConfirm($user);
-                return $this->goHome();
-            } catch (\RuntimeException $e){
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->contact(Yii::$app->params['adminEmail'])) {
+                Yii::$app->getSession()->setFlash('alert', [
+                    'body' => 'Спасибо. Мы свяжемся с Вами в ближайшее время.',
+                    'options' => ['class' => 'alert-success']
+                ]);
+                return $this->refresh();
             }
+
+            Yii::$app->getSession()->setFlash('alert', [
+                'body' => 'Ошибка при отправке сообщения.',
+                'options' => ['class' => 'alert-danger']
+            ]);
         }
 
-        return $this->render('signup', [
-            'model' => $form,
-        ]);
-    }
-
-    public function actionSignupConfirm($token)
-    {
-        $signupService = new SignupService();
-
-        try{
-            $signupService->confirmation($token);
-            Yii::$app->session->setFlash('success', 'You have successfully confirmed your registration.');
-        } catch (\Exception $e){
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('error', $e->getMessage());
-        }
-
-        return $this->goHome();
-    }
-
-    /**
-     * Requests password reset.
-     *
-     * @return mixed
-     */
-    public function actionRequestPasswordReset()
-    {
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
-            }
-        }
-
-        return $this->render('requestPasswordResetToken', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Resets password.
-     *
-     * @param string $token
-     * @return mixed
-     * @throws BadRequestHttpException
-     */
-    public function actionResetPassword($token)
-    {
-        try {
-            $model = new ResetPasswordForm($token);
-        } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
-
-            return $this->goHome();
-        }
-
-        return $this->render('resetPassword', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Verify email address
-     *
-     * @param string $token
-     * @throws BadRequestHttpException
-     * @return yii\web\Response
-     */
-    public function actionVerifyEmail($token)
-    {
-        try {
-            $model = new VerifyEmailForm($token);
-        } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-        if ($user = $model->verifyEmail()) {
-            if (Yii::$app->user->login($user)) {
-                Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
-                return $this->goHome();
-            }
-        }
-
-        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
-        return $this->goHome();
-    }
-
-    /**
-     * Resend verification email
-     *
-     * @return mixed
-     */
-    public function actionResendVerificationEmail()
-    {
-        $model = new ResendVerificationEmailForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-                return $this->goHome();
-            }
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
-        }
-
-        return $this->render('resendVerificationEmail', [
+        return $this->render('contact', [
             'model' => $model
         ]);
     }
+
+    /**
+     * @param string $format
+     * @param bool $gzip
+     * @return string
+     * @throws BadRequestHttpException
+     */
+    public function actionSitemap($format = Sitemap::FORMAT_XML, $gzip = false)
+    {
+        $links = new UrlsIterator();
+        $sitemap = new Sitemap(new Urlset($links));
+
+        Yii::$app->response->format = Response::FORMAT_RAW;
+
+        if ($gzip === true) {
+            Yii::$app->response->headers->add('Content-Encoding', 'gzip');
+        }
+
+        if ($format === Sitemap::FORMAT_XML) {
+            Yii::$app->response->headers->add('Content-Type', 'application/xml');
+            $content = $sitemap->toXmlString($gzip);
+        } else if ($format === Sitemap::FORMAT_TXT) {
+            Yii::$app->response->headers->add('Content-Type', 'text/plain');
+            $content = $sitemap->toTxtString($gzip);
+        } else {
+            throw new BadRequestHttpException('Unknown format');
+        }
+
+        $linksCount = $sitemap->getCount();
+        if ($linksCount > 50000) {
+            Yii::warning(\sprintf('Sitemap links count is %d'), $linksCount);
+        }
+
+        return $content;
+    }
+
+    public function actionShare($token){
+
+
+        $questions = Questions::find()->where(['token' => $token])->one();
+        $answer = Answers::find()->where(['question_id' => $questions->id_question])->all();
+
+
+        return $this->render('share', ['questions' => $questions,'answer' => $answer]);
+
+
+    }
+
+    public function actionSaveanswer($question,$id){
+
+        $model = new UserAnswers();
+
+        $q = Questions::find()->where(['token' => $question])->one();
+
+        $model->question_id = $q->id_question;
+        $model->user_id = Yii::$app->user->identity->id;
+        $model->answer_id = $id;
+        $model->created_at = time();
+
+
+        $model->save();
+        Yii::$app->getSession()->setFlash('alert', [
+            'body' => 'Спасибо за Ваш ответ! Вы помогаете сделать мир лучше =)',
+            'options' => ['class' => 'alert-success']
+        ]);
+
+
+
+        return $this->goHome();
+
+    }
+
+//    public function actionValidate()
+//    {
+//        $model = new MyModel();
+//        $request = \Yii::$app->getRequest();
+//        if ($request->isPost && $model->load($request->post())) {
+//            \Yii::$app->response->format = Response::FORMAT_JSON;
+//            return ActiveForm::validate($model);
+//        }
+//    }
+//
+//    public function actionSave()
+//    {
+//        $model = new MyModel();
+//        $request = \Yii::$app->getRequest();
+//        if ($request->isPost && $model->load($request->post())) {
+//            \Yii::$app->response->format = Response::FORMAT_JSON;
+//            return ['success' => $model->save()];
+//        }
+//        return $this->renderAjax('myViewName', [
+//            'model' => $model,
+//        ]);
+//    }
 }

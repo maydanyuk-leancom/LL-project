@@ -1,0 +1,34 @@
+.footer .socico img {
+    max-width: 50px;
+}
+
+.tab-content #menu_blog ol, .tab-content #menu_investigate ol, .tab-content #menu_researchers ol {
+    background: #222;
+}
+
+
+
+#w1 li form, #w1 li form input{
+    width: 40vw;
+}
+
+.hidethis{display: none}
+.choise{cursor: pointer}
+
+
+.cid-rvQ7Ldk6nZ1 {
+    padding-top: 10px;
+    padding-bottom: 30px;
+    background: linear-gradient(45deg, #dbd4b8, #25aab2);
+}
+.cid-rvQ8OLLVfi1{
+    padding-top: 90px;
+    padding-bottom: 90px;
+    background-color: #ffffff;
+}
+.thumbnail {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    min-width: 40%;
+}
+

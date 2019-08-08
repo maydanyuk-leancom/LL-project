@@ -1,8 +1,9 @@
-RewriteEngine on
- 
-# если это папка или файл, открываем его
+RewriteEngine On
+
+RewriteCond %{HTTP:HTTPS} !on
+RewriteRule (.*) https://backend.maydanyuk.org/$1 [R=301,L]
+
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
- 
-# в противном случае перенаправляем на index.php
 RewriteRule . index.php
