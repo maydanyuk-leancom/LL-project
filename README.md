@@ -28,15 +28,15 @@ Create your investigation with us!
       ```
 7. Устанавливаем недостающие компоненты
       
-      ```bash
+     ```bash
       composer install
-      ```
-8. Генерируем разные ключи в файле окружения и другое
-       
+     ```
+ 8. Генерируем разные ключи в файле окружения и другое
+
        ```bash
-       php console/yii app/setup
+        php console/yii app/setup
        ```
-9. Устанавливаем компоненты npm
+ 9. Устанавливаем компоненты npm
 
        ```bash
           npm install
