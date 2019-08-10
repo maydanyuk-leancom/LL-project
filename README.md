@@ -37,6 +37,7 @@ Create your investigation with us!
        php console/yii app/setup
        ```
 9. Устанавливаем компоненты npm
+
        ```bash
           npm install
        ```
