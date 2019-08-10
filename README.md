@@ -19,13 +19,11 @@ Create your investigation with us!
     
     composer self-update
     
-    composer global require "fxp/composer-asset-plugin"
-    
     composer create-project mio/llproject -s dev mio
     ```
 6. Переходим в каталог приложения
    
-      ```bash
+      ```bash 
       cd mio
       ```
 7. Устанавливаем недостающие компоненты
