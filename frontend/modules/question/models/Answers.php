@@ -33,7 +33,7 @@ class Answers extends \yii\db\ActiveRecord
             [['question_id', 'answers'], 'required'],
             [['question_id'], 'integer'],
             [['answers'], 'string'],
-            [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Questions::className(), 'targetAttribute' => ['question_id' => 'id_question']],
+            [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Questions::className(), 'targetAttribute' => ['question_id' => 'id']],
         ];
     }
 
@@ -54,7 +54,7 @@ class Answers extends \yii\db\ActiveRecord
      */
     public function getQuestion()
     {
-        return $this->hasOne(Questions::className(), ['id_question' => 'question_id']);
+        return $this->hasOne(Questions::className(), ['id' => 'question_id']);
     }
 
     /**

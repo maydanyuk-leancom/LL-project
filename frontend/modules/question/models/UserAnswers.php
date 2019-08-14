@@ -2,6 +2,7 @@
 
 namespace frontend\modules\question\models;
 use common\models\User;
+
 use Yii;
 
 /**
@@ -13,9 +14,9 @@ use Yii;
  * @property int $answer_id
  * @property int $created_at
  *
- * @property AddedQuestions $question
- * @property Answers $answer
+ * @property Questions $question
  * @property User $user
+ * @property Answers $answer
  */
 class UserAnswers extends \yii\db\ActiveRecord
 {
@@ -35,9 +36,10 @@ class UserAnswers extends \yii\db\ActiveRecord
         return [
             [['question_id', 'answer_id'], 'required'],
             [['question_id', 'user_id', 'answer_id', 'created_at'], 'integer'],
-            [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => AddedQuestions::className(), 'targetAttribute' => ['question_id' => 'id']],
-            [['answer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Answers::className(), 'targetAttribute' => ['answer_id' => 'id']],
+            [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Questions::className(), 'targetAttribute' => ['question_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['answer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Answers::className(), 'targetAttribute' => ['answer_id' => 'id']],
+
         ];
     }
 
@@ -60,7 +62,15 @@ class UserAnswers extends \yii\db\ActiveRecord
      */
     public function getQuestion()
     {
-        return $this->hasOne(AddedQuestions::className(), ['id' => 'question_id']);
+        return $this->hasOne(Questions::className(), ['id' => 'question_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -71,11 +81,25 @@ class UserAnswers extends \yii\db\ActiveRecord
         return $this->hasOne(Answers::className(), ['id' => 'answer_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
+    public function getCountAnswers($id)
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+
+        $model = $this->question_id = self::find()
+                ->where(['question_id' => $id])
+                ->all();
+
+
+
+
+        $same = [];
+
+        foreach($model as $v){
+
+            $same[] = $v->answer_id;
+
+        }
+        return array_values(array_count_values($same));
+
+
     }
 }

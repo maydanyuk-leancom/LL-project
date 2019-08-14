@@ -1,7 +1,12 @@
 <?php
 
 namespace frontend\modules\question\controllers;
+use common\base\MultiModel;
 use frontend\modules\question\models\UserAnswers;
+use frontend\modules\user\models\AccountForm;
+use Intervention\Image\ImageManagerStatic;
+use trntv\filekit\actions\DeleteAction;
+use trntv\filekit\actions\UploadAction;
 use Yii;
 use yii\web\Controller;
 use frontend\modules\question\models\AddedQuestions;
@@ -22,6 +27,26 @@ class DefaultController extends Controller
 
     public $layout = '@app/modules/user/views/layouts/base.php';
 
+
+    public function actions()
+    {
+        return [
+            'question-image-upload' => [
+                'class' => UploadAction::class,
+                'deleteRoute' => 'question-image-delete',
+                'on afterSave' => function ($event) {
+                    /* @var $file \League\Flysystem\File */
+                    $file = $event->file;
+                    $img = ImageManagerStatic::make($file->read())->fit(215, 215);
+                    $file->put($img->encode());
+                }
+            ],
+            'question-image-delete' => [
+                'class' => DeleteAction::class
+            ]
+        ];
+    }
+
     public function actionIndex()
     {
         $addedquestionsid = new AddedQuestions();
@@ -32,38 +57,64 @@ class DefaultController extends Controller
 
     }
 
+    public function actionNew()
+    {
+
+        return $this->render('new');
+
+    }
+
+    public function actionStep1()
+    {
+
+        $accountForm = new AccountForm();
+        $accountForm->setUser(Yii::$app->user->identity);
+
+        $model = new MultiModel([
+            'models' => [
+                'account' => $accountForm,
+                'profile' => Yii::$app->user->identity->userProfile
+            ]
+        ]);
+
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            $locale = $model->getModel('profile')->locale;
+//            Yii::$app->session->setFlash('forceUpdateLocale');
+//            Yii::$app->session->setFlash('alert', [
+//                'options' => ['class' => 'alert-success'],
+//                'body' => Yii::t('frontend', 'Ваш аккаунт был успешно сохранён', [], $locale)
+//            ]);
+//            return $this->refresh();
+//        }
+
+        return $this->render('step1', ['model' => $model ]);
+    }
+
+
 
 
     public function actionMyinvestigations()
     {
 
-
-
         $addedquestions = AddedQuestions::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
 
+        $quesions_array = [];
+        $sum_answers = [];
 
-
-
-        $q = [];
-
-        foreach($addedquestions as $v)
+        foreach($addedquestions as $k => $v)
         {
-            $question = Questions::find()->where(['id_question' => $v->id])->all();
-            $answers = Answers::find()->where(['question_id' => $v->id])->all();
 
-            $q_a = Questions::find()->joinWith('answers')->where(['id_question' => $v->id])->all();
+            $questions_aanswers = Questions::find()->joinWith('answers')->where(['id_question' => $v->id])->all();
 
+            $find_sum = (new UserAnswers())->getCountAnswers($v->id);
 
-
-                $q[] = $q_a;
+            $quesions_array[] = $questions_aanswers;
+            $sum_answers[] = $find_sum;
 
         }
 
 
-
-
-
-        return $this->render('myinvestigations', ['q' => $q ]);
+        return $this->render('myinvestigations', ['q' => $quesions_array,'s' => $sum_answers  ]);
     }
 
 
@@ -150,6 +201,7 @@ class DefaultController extends Controller
         }
 
 
+        return $this->redirect('/question/default/myinvestigations');
 
 
 
