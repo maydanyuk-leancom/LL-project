@@ -33,22 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group">
                     <?php echo Html::submitButton('Вход', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
-<!--                <div class="form-group">-->
-<!--                    --><?php //echo Html::a('Нужен аккаунт? Зарегистрируйтесь', ['signup']) ?>
-<!--                </div>-->
-<!--                <h2>--><?php //echo 'Войти с помощью'  ?><!--:</h2>-->
-<!--                <div class="form-group">-->
-<!--                    --><?php //$authAuthChoice = yii\authclient\widgets\AuthChoice::begin([
-//                                    'baseAuthUrl' => ['oauth']
-//                                ]); ?>
-<!--                        <ul class="list-unstyle list-inline">-->
-<!--                            --><?php //foreach ($authAuthChoice->getClients() as $client): ?>
-<!--                                <li>--><?//= $authAuthChoice->clientLink($client) ?><!--</li>-->
-<!--                            --><?php //endforeach; ?>
-<!--                        </ul>-->
-<!--                    --><?php //yii\authclient\widgets\AuthChoice::end(); ?>
-<!--                </div>-->
-            <?php ActiveForm::end(); ?>
+                            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>

@@ -104,11 +104,11 @@ class DefaultController extends Controller
         foreach($addedquestions as $k => $v)
         {
 
-            $questions_aanswers = Questions::find()->joinWith('answers')->where(['id_question' => $v->id])->all();
+            $questions_answers = Questions::find()->select(['`id_question`,`question`,`answers`,`token`'])->leftJoin('answers', 'questions.`id_question` = answers.`question_id` ')->where(['id_question' => $v->id])->asArray()->all();
 
             $find_sum = (new UserAnswers())->getCountAnswers($v->id);
 
-            $quesions_array[] = $questions_aanswers;
+            $quesions_array[] = $questions_answers;
             $sum_answers[] = $find_sum;
 
         }
@@ -187,8 +187,7 @@ class DefaultController extends Controller
 
             foreach($answers as $r){
 
-
-                 $addedanswer = new Answers();
+                $addedanswer = new Answers();
 
                 $addedanswer->question_id = AddedQuestions::find()->max('id');
 
@@ -201,8 +200,7 @@ class DefaultController extends Controller
         }
 
 
-        return $this->redirect('/question/default/myinvestigations');
-
+     return $this->redirect('/question/default/myinvestigations');
 
 
     }

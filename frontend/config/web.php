@@ -19,9 +19,6 @@ $config = [
         'channel' => [
             'class' => frontend\modules\channel\Channel::class,
         ],
-        'utility' => [
-            'class' => 'c006\utility\migration\Module',
-        ],
 
     ],
 

@@ -68,8 +68,15 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/save_to_local.js',['posit
                                     <div class="col-sm-4 col-md-4">
                                         <a class="btn btn-primary display-4 answer" <?=$var?>>
                                             <?=$a["answers"]?>
-                                        </a>
+                                        </a> <br><br>
 
+                                        <div class="progress progress-bar-vertical">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
+                                                <div class="progress-text">
+                                                    20%
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
 

@@ -160,13 +160,16 @@ class SiteController extends Controller
 
         $q = Questions::find()->where(['token' => $question])->one();
 
+
         $model->question_id = $q->id_question;
         $model->user_id = Yii::$app->user->identity->id;
         $model->answer_id = $id;
         $model->created_at = time();
 
 
+
         $model->save();
+
         Yii::$app->getSession()->setFlash('alert', [
             'body' => 'Спасибо за Ваш ответ! Вы помогаете сделать мир лучше =)',
             'options' => ['class' => 'alert-success']

@@ -157,48 +157,58 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/ajax/save_questions.js',[
 
     </div>
 
+        <div id="myModal" class="modal fade new_modal" role="dialog">
 
-
-        <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
                 <!-- Modal content-->
-                <div class="modal-content" style="height: auto">
+                <div class="modal-content" style="height: auto" role="form">
+
                     <div class="media-container-column">
                         <div class="modal-body text-center">
 
-                            <input class="form-control question" data-id="1" placeholder="Напишите свой вопрос здесь...">
+                            <input class="form-control question" id="mainTitle" data-id="1" style="height: 47px;" placeholder="Напишите свой вопрос здесь...">
 
                             <h5 class="mbr-section-subtitle mbr-light mbr-white mbr-fonts-style display-5">
                                 Варианты ответа
                             </h5>
 
-                            <div role="form">
-                                <input type="hidden" name="count" value="1" />
-                                <input autocomplete="off" class="form-control answers"  data-id = "1" type="text" placeholder="Ответ 1" />
-                                <br>
-                                <input autocomplete="off" class="form-control answers"  data-id = "1" id="field1" name="prof1" type="text" placeholder="Ответ 2" />
+                            <div class="single-choice">
 
-                                <br>
+                            <ul class="sortable ui-sortable">
+                                <li>
+                                    <a class="move icon-move"></a>
+                                    <div class="textareaInputContainer textareaOnly">
+                                        <textarea autocomplete="off" maxlength="500" class="input answers"  data-id = "1" name="prof0" type="text" placeholder="Ответ" rows="1" style="height: 34px;"></textarea>
+                                    </div>
+<!--                                    <div class="remove"><i></i></div>-->
+                                </li>
 
-                                <div class="form-inline">
-                                <button id="b1" class="btn add-more btn-success" type="button" style="float: left">+ Добавить ответ</button>
-                                <a  class="btn btn-success done " style="float: right"  >Создать опрос</a>
-                                </div>
+                                <li>
+                                    <a class="move icon-move"></a>
+                                    <div class="textareaInputContainer textareaOnly">
+                                        <textarea autocomplete="off" maxlength="500" class="input answers"  data-id = "1" name="prof1" type="text" placeholder="Ответ" rows="1" style="height: 34px;"></textarea>
+                                    </div>
+<!--                                    <div class="remove"><i></i></div>-->
+                                </li>
+
+                            </ul>
                             </div>
+
+                            <div class="add">
+                                <a class="add-default add-primary add-more"><span>Добавить ответ</span></a>
+                                <a class="add-default add-default-text"><span >Добавить ответ - "Другой"</span></a>
+                            </div>
+
                         </div>
 
-
                     </div>
-                    <div class="added_question"></div>
 
-
-
-                    <div class="form-group" align="center">
-
+                    <div class="footer">
+                        <div class="submitArea">
+                            <a class="btn btn-success done">Создать опрос</a>
+                        </div>
                     </div>
-                    <br>
-
 
                 </div>
 
@@ -207,4 +217,5 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/ajax/save_questions.js',[
             </div>
 
         </div>
+
 

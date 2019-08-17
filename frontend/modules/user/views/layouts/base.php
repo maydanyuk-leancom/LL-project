@@ -90,7 +90,7 @@ $this->beginContent('@backend/views/layouts/base.php'); ?>
                                     </small>
                             </li>
                             <!-- Menu Footer-->
-                            <li class="user-footer">
+                            <li class="user-footer"> 
                                 <div class="pull-left">
                                     <?php echo Html::a('Профиль', ['/user/default/settings'], ['class' => 'btn btn-default btn-flat']) ?>
                                 </div>
@@ -103,9 +103,7 @@ $this->beginContent('@backend/views/layouts/base.php'); ?>
                             </li>
                         </ul>
                     </li>
-<!--                    <li>-->
-<!--                        --><?php //echo Html::a('<i class="fa fa-cogs"></i>', ['/system/settings']) ?>
-<!--                    </li>-->
+               
                 </ul>
             </div>
         </nav>

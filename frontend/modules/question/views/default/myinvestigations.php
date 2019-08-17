@@ -27,21 +27,22 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/ajax/save_questions.js',[
                     <span class="time">
                         <i class="fa fa-clock-o"></i></span>
 
+
                         <?php
 
 
+                        foreach ($v as $n => $r) {
 
-                        foreach ($v[0]["answers"] as $n => $r) {
-
-                            $a[] = [$r->answers, $s[$k][$n]];
+                            $a[$n] = [$r["answers"], $s[$k][$n]];
 
                         }
+
 
                         if(!empty($s[$k])){
 
                             echo Highcharts::widget([
                                 'options' => [
-                                    'title' => ['text' => $v[0]->question],
+                                    'title' => ['text' => $v[0]["question"]],
                                     'chart' => [
                                         'type' => 'pie'
                                     ],
@@ -66,18 +67,15 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/ajax/save_questions.js',[
                             ]);
                         }else{?>
 
-                            <h4><?=  $v[0]->question ?></h4>
+                            <h4><?=  $v[0]["question"] ?></h4>
                             <h5> В ожидании реультатов <span class="glyphicon glyphicon-globe"></span></h5>
 
                         <?php }?>
 
 
-
-
-
                         <div class="timeline-footer">
                             <a class="btn btn-success btn-sm" href="">Редактировать</a>
-                            <a class="btn btn-success btn-sm" href="/site/share?token=<?=$v[0]->token?>">Поделиться</a>
+                            <a class="btn btn-success btn-sm" href="/site/share?token=<?=$v[0]["token"]?>">Поделиться</a>
                         </div>
                     </div>
                 </li>

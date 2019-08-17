@@ -57,7 +57,7 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                     'label' => 'Настройки профиля',
                     'url' => ['/user/default/settings']
                 ],
-                [
+                    [
                     'label' => 'Панель управления',
                     'url' => Yii::getAlias('@backendUrl'),
                     'visible'=>Yii::$app->user->can('manager')

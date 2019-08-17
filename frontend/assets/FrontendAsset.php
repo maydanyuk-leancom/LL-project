@@ -44,9 +44,9 @@ class FrontendAsset extends AssetBundle
         YiiAsset::class,
         BootstrapAsset::class,
         Html5shiv::class,
-    ];
-
+    ]; 
+  
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     public $cssOptions = ['position' => \yii\web\View::POS_HEAD];
-
+ 
 }

@@ -36,7 +36,7 @@ class UserAnswers extends \yii\db\ActiveRecord
         return [
             [['question_id', 'answer_id'], 'required'],
             [['question_id', 'user_id', 'answer_id', 'created_at'], 'integer'],
-            [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Questions::className(), 'targetAttribute' => ['question_id' => 'id']],
+            [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Questions::className(), 'targetAttribute' => ['question_id' => 'id_question']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['answer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Answers::className(), 'targetAttribute' => ['answer_id' => 'id']],
 
@@ -62,7 +62,7 @@ class UserAnswers extends \yii\db\ActiveRecord
      */
     public function getQuestion()
     {
-        return $this->hasOne(Questions::className(), ['id' => 'question_id']);
+        return $this->hasOne(Questions::className(), ['id_question' => 'question_id']);
     }
 
     /**
